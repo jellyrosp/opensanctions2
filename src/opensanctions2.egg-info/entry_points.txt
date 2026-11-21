@@ -1,3 +1,0 @@
-[console_scripts]
-opensanctions-extract = opensanctions2.extract.csv2sqlite:main
-reasons-extract = opensanctions2.extract.reasons2csv:main
