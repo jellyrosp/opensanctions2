@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "opensanctions2"
+version = "1.0.0"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas",
+    "duckdb",
+    
+]
+
+[project.scripts]
+opensanctions-extract = "opensanctions2.extract.csv2sqlite:main"
+reasons-extract = "opensanctions2.extract.reasons2csv:main"
+
+[project.optional-dependencies]
+notebook = [
+    "jupyterlab",
+    "ipykernel",
+    "jinja2",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
