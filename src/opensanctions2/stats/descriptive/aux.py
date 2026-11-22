@@ -50,6 +50,10 @@ def aggregate_datasets(valid_datasets: Iterable[str]) -> dict[str, str]:
 
 
 
+def remove_relative_frequencies(dataframe: pd.DataFrame) -> pd.DataFrame:
+    """Return a copy of the DataFrame without relative frequency columns."""
 
-
+    return dataframe.loc[
+        :, ~dataframe.columns.str.contains("_rel", regex=False)
+    ].copy()
 

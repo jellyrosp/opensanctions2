@@ -59,7 +59,7 @@ TOPIC_LABELS = {
     'role.diplo': 'diplomat',
     'role.judge': 'judge',
     'role.oligarch': 'oligarch',
-    'role.pep': 'pol. exp. person',
+    'role.pep': 'politically exposed person',
     'role.pol': 'politically exposed role',
     'role.rca': 'close associate',
     'sanction': 'sanctioned entity',

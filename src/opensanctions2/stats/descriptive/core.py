@@ -5,7 +5,7 @@ import pandas as pd
 
 from opensanctions2.config import STATEMENTS_FILTERED_DB_PATH, STATEMENTS_FULL_DB_PATH, OUTPUT_DIR
 from opensanctions2.constants import VALID_DATASETS, TOPIC_LABELS
-from opensanctions2.stats.descriptive.aux import aggregate_datasets
+from opensanctions2.stats.descriptive.aux import aggregate_datasets, remove_relative_frequencies
 
 
 def count_sanctioned_individual() -> int:
@@ -475,6 +475,7 @@ def gender_topics_distribution() -> pd.DataFrame:
         columns="gender",
         values="abs_freq"
     ).fillna(0)
+    df.columns.name = None
 
     # Ensure both gender categories are represented
     df = df.reindex(
@@ -483,12 +484,22 @@ def gender_topics_distribution() -> pd.DataFrame:
     ).astype(int)
 
     # Calculate relative frequencies within each topic
-    total = df["male"] + df["female"]
+    #total = df["male"] + df["female"]
 
-    df["male_rel_freq"] = df["male"] / total
-    df["female_rel_freq"] = df["female"] / total
+    gender_distr_df = gender_values_distribution()
 
-    # Rename absolute-frequency columns
+    male_total = gender_distr_df.loc[
+        gender_distr_df["gender_value"] == "male", "abs_freq"
+    ].iloc[0]
+
+    female_total = gender_distr_df.loc[
+        gender_distr_df["gender_value"] == "female", "abs_freq"
+    ].iloc[0]
+
+
+    df["male_rel_freq"] = (df["male"] / male_total) 
+    df["female_rel_freq"] = (df["female"] / female_total) 
+
     df = df.rename(columns={
         "male": "male_abs_freq",
         "female": "female_abs_freq"
@@ -510,3 +521,6 @@ def gender_topics_distribution() -> pd.DataFrame:
             "female_rel_freq"
         ]
     ].sort_values("topic").reset_index(drop=True)
+
+
+

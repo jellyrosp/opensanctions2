@@ -437,18 +437,10 @@ def extract_unfiltered_datasets() -> tuple[int, int]:
     statements_count = extract_unfiltered_csv(
         csv_path=STATEMENTS_CSV_PATH,
         db_path=STATEMENTS_FULL_DB_PATH,
-        temp_db_path=TEMP_STATEMENTS_FULL_DB_PATH,
         table_name="statements",
     )
 
-    targets_count = extract_unfiltered_csv(
-        csv_path=TARGETS_CSV_PATH,
-        db_path=TARGETS_DB_PATH,
-        temp_db_path=TEMP_TARGETS_DB_PATH,
-        table_name="targets",
-    )
-
-    return statements_count, targets_count
+    return statements_count
 
 
 
